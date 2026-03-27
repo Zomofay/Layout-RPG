@@ -1,0 +1,390 @@
+/* ========================================
+   Variables e Reset Global
+   ======================================== */
+:root {
+    /* Cor vermelha principal da Netflix */
+    --color-primary: #E50914;
+    /* Cor cinza escuro para elementos secundários */
+    --color-secondary: #221F1F;
+    /* Cor de fundo escuro da aplicação */
+    --color-background: #141414;
+    /* Cor do texto principal (branco) */
+    --color-text: #FFFFFF;
+    /* Cor do texto secundário (cinza claro) */
+    --color-text-secondary: #808080;
+    /* Velocidade padrão de transições e animações */
+    --transition-speed: 0.3s;
+    /* Raio de curvatura dos cantos dos elementos */
+    --border-radius: 8px;
+}
+
+* {
+    /* Remove margem padrão de todos os elementos */
+    margin: 0;
+    /* Remove preenchimento padrão de todos os elementos */
+    padding: 0;
+    /* Inclui padding/border no cálculo total da largura/altura */
+    box-sizing: border-box;
+}
+
+/* ========================================
+   Body e Tipografia
+   ======================================== */
+body {
+    /* Define o fundo escuro como padrão */
+    background-color: var(--color-background);
+    /* Define a cor do texto como branco */
+    color: var(--color-text);
+    /* Define a família de fonte padrão */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* Aumenta o espaço entre linhas para melhor legibilidade */
+    line-height: 1.6;
+    /* Evita barra de rolagem horizontal */
+    overflow-x: hidden;
+}
+
+html {
+    /* Ativa scroll suave ao navegar com âncoras */
+    scroll-behavior: smooth;
+}
+
+/* ========================================
+   Header
+   ======================================== */
+header {
+    /* Cria gradiente de preto transparente para escurecer o fundo */
+    background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.5) 100%);
+    /* Espaçamento interno: 60px acima/abaixo, 20px esquerda/direita */
+    padding: 60px 20px;
+    /* Centraliza o texto horizontalmente */
+    text-align: center;
+    /* Define altura mínima do header */
+    min-height: 300px;
+    /* Ativa layout flexível */
+    display: flex;
+    /* Centraliza conteúdo verticalmente */
+    align-items: center;
+    /* Centraliza conteúdo horizontalmente */
+    justify-content: center;
+    /* Necessário para posicionar elementos absolutos dentro dele */
+    position: relative;
+    /* Corta conteúdo que ultrapassa os limites */
+    overflow: hidden;
+}
+
+header::before {
+    /* Cria um pseudo-elemento vazio */
+    content: '';
+    /* Posiciona absolutamente para cobrir todo o header */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* Adiciona padrão de grade SVG como fundo */
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300"><defs><pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M 50 0 L 0 0 0 50" fill="none" stroke="rgba(229,9,20,0.05)" stroke-width="1"/></pattern></defs><rect width="1200" height="300" fill="url(%23grid)"/></svg>');
+    /* Define a camada para ficar atrás do título */
+    z-index: 0;
+}
+
+header h1 {
+    /* Define tamanho grande para o título */
+    font-size: 3rem;
+    /* Deixa o texto mais pesado/espesso */
+    font-weight: 700;
+    /* Adiciona espaço entre as letras */
+    letter-spacing: 2px;
+    /* Converte o texto para maiúsculas */
+    text-transform: uppercase;
+    /* Necessário para usar z-index */
+    position: relative;
+    /* Coloca o título acima da grade de fundo */
+    z-index: 1;
+    /* Define a cor do texto em branco */
+    color: var(--color-text);
+    /* Adiciona sombra ao texto para melhor contraste */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+/* ========================================
+   Main
+   ======================================== */
+main {
+    /* Define largura máxima para layout responsivo */
+    max-width: 1400px;
+    /* Centraliza o conteúdo na página */
+    margin: 0 auto;
+    /* Espaçamento interno: 40px acima/abaixo, 20px esquerda/direita */
+    padding: 40px 20px;
+}
+
+/* ========================================
+   Section Perfis
+   ======================================== */
+section.perfis {
+    /* Ativa layout de grade */
+    display: grid;
+    /* Cria colunas que se ajustam automaticamente (min 180px, max 1fr) */
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    /* Espaço entre os cards */
+    gap: 20px;
+    /* Espaçamento interno vertical */
+    padding: 20px 0;
+}
+
+/* ========================================
+   Cards de Perfil
+   ======================================== */
+article.perfil {
+    /* Muda o cursor para indicar que é clicável */
+    cursor: pointer;
+    /* Anima transformações e brilho suavemente */
+    transition: transform var(--transition-speed) ease, filter var(--transition-speed) ease;
+    /* Arredonda os cantos do card */
+    border-radius: var(--border-radius);
+    /* Oculta conteúdo que ultrapassa os limites (importante para imagem) */
+    overflow: hidden;
+    /* Necessário para posicionar elementos absolutos */
+    position: relative;
+    /* Cor de fundo cinza escuro */
+    background-color: var(--color-secondary);
+    /* Define proporção 9:12 (portrait) */
+    aspect-ratio: 9/12;
+    /* Ativa layout flexível */
+    display: flex;
+    /* Organiza itens em coluna (de cima para baixo) */
+    flex-direction: column;
+    /* Centraliza itens horizontalmente */
+    align-items: center;
+    /* Justifica o texto para o final (bottom) */
+    justify-content: flex-end;
+    /* Espaçamento interno */
+    padding: 16px;
+    /* Centraliza o texto */
+    text-align: center;
+    /* Remove contorno padrão */
+    outline: none;
+}
+
+/* Efeito ao passar o mouse ou focar */
+article.perfil:hover,
+article.perfil:focus {
+    /* Aumenta o card 8% */
+    transform: scale(1.08);
+    /* Aumenta o brilho do card */
+    filter: brightness(1.1);
+}
+
+/* Efeito ao clicar */
+article.perfil:active {
+    /* Diminui o card 2% para feedback visual */
+    transform: scale(0.98);
+}
+
+/* Imagem do perfil */
+article.perfil img {
+    /* Posiciona a imagem sobre o card */
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* Faz a imagem ocupar todo o espaço */
+    width: 100%;
+    height: 100%;
+    /* Cobre a area sem distorcer */
+    object-fit: cover;
+    /* Centraliza a imagem no card */
+    object-position: center;
+    /* Anima o brilho suavemente */
+    transition: filter var(--transition-speed) ease;
+    /* Coloca a imagem na camada 1 (atrás do overlay, acima do fundo) */
+    z-index: 1;
+}
+
+/* Efeitos na imagem ao passar o mouse */
+article.perfil:hover img {
+    /* Escurece a imagem em 30% */
+    filter: brightness(0.7);
+}
+
+/* Overlay escuro sobre a imagem */
+article.perfil::after {
+    /* Cria um pseudo-elemento vazio */
+    content: '';
+    /* Posiciona absolutamente para cobrir a imagem */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Cria gradiente de transparente (topo) para preto (fundo) */
+    background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+    /* Coloca o overlay na camada 2 (acima da imagem) */
+    z-index: 2;
+}
+
+/* Título do perfil */
+article.perfil h2 {
+    /* Define tamanho da fonte */
+    font-size: 1rem;
+    /* Deixa o texto mais pesado */
+    font-weight: 600;
+    /* Empurra o texto para baixo (junto ao fim do container) */
+    margin-top: auto;
+    /* Necessário para usar z-index */
+    position: relative;
+    /* Coloca o texto acima de tudo */
+    z-index: 3;
+    /* Adiciona espaço entre as letras */
+    letter-spacing: 0.5px;
+}
+
+/* ========================================
+   Estados e Interatividade
+   ======================================== */
+article.perfil[role="button"] {
+    /* Evita que o texto seja selecionável ao clicar */
+    user-select: none;
+}
+
+/* Foco visível para acessibilidade */
+article.perfil:focus-visible {
+    /* Adiciona borda vermelha ao focar com teclado */
+    outline: 3px solid var(--color-primary);
+    /* Cria espaço entre a borda e o elemento */
+    outline-offset: 2px;
+}
+
+/* ========================================
+   Responsividade - Tablets (768px)
+   ======================================== */
+@media (max-width: 768px) {
+    header h1 {
+        /* Reduz o tamanho do título para tablets */
+        font-size: 2rem;
+        /* Ajusta o padding */
+        padding: 20px;
+    }
+
+    header {
+        /* Reduz o padding para economizar espaço */
+        padding: 40px 20px;
+        /* Remove altura mínima para deixar flexível */
+        min-height: auto;
+    }
+
+    section.perfis {
+        /* Reduz tamanho mínimo das colunas para tablets */
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        /* Reduz espaço entre cards */
+        gap: 15px;
+    }
+
+    article.perfil {
+        /* Ajusta a proporção para tablets */
+        aspect-ratio: 2/3;
+    }
+
+    article.perfil h2 {
+        /* Reduz tamanho do título do card */
+        font-size: 0.85rem;
+    }
+}
+
+/* ========================================
+   Responsividade - Celulares (480px)
+   ======================================== */
+@media (max-width: 480px) {
+    header h1 {
+        /* Reduz drasticamente o tamanho para celular */
+        font-size: 1.5rem;
+        /* Reduz espaço entre letras */
+        letter-spacing: 1px;
+    }
+
+    section.perfis {
+        /* Define colunas ainda menores para celular */
+        grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+        /* Reduz espaço entre cards */
+        gap: 12px;
+    }
+
+    article.perfil {
+        /* Volta para proporção original em celular */
+        aspect-ratio: 9/12;
+        /* Reduz padding interno */
+        padding: 12px;
+    }
+
+    article.perfil h2 {
+        /* Reduz drasticamente o tamanho do título */
+        font-size: 0.75rem;
+    }
+
+    main {
+        /* Reduz padding para aproveitar melhor o espaço */
+        padding: 20px 10px;
+    }
+}
+
+/* ========================================
+   Scrollbar Customizado
+   ======================================== */
+::-webkit-scrollbar {
+    /* Define a largura da barra de rolagem */
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    /* Define a cor de fundo da barra de rolagem */
+    background: var(--color-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    /* Define a cor do dedo da barra de rolagem */
+    background: var(--color-primary);
+    /* Arredonda os cantos do dedo */
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    /* Muda a cor ao passar o mouse sobre a barra */
+    background: #b20710;
+}
+
+/* ========================================
+   Animações
+   ======================================== */
+/* Define a animação de entrada (fade in) */
+@keyframes fadeIn {
+    /* Estado inicial: invisível e deslocado para baixo */
+    from {
+        /* Completamente transparente */
+        opacity: 0;
+        /* Deslocado 20px para baixo */
+        transform: translateY(20px);
+    }
+    /* Estado final: visível e no lugar correto */
+    to {
+        /* Totalmente visível */
+        opacity: 1;
+        /* Retorna à posição original */
+        transform: translateY(0);
+    }
+}
+
+/* Aplica a animação a todos os cards */
+article.perfil {
+    /* Nome da animação */
+/* Aplica a animação a todos os cards */
+article.perfil {
+    /* Nome da animação: fadeIn | Duração: 0.5s | Timing: ease-out | Preenchimento: forwards */
+    animation: fadeIn 0.5s ease-out forwards;
+}
+/* Define diferentes delays para efeito em cascata */
+article.perfil:nth-child(1) { animation-delay: 0.1s; }
+article.perfil:nth-child(2) { animation-delay: 0.2s; }
+article.perfil:nth-child(3) { animation-delay: 0.3s; }
+article.perfil:nth-child(4) { animation-delay: 0.4s; }
+article.perfil:nth-child(5) { animation-delay: 0.5s; }
+article.perfil:nth-child(6) { animation-delay: 0.6s; }
+}
