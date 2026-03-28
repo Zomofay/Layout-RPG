@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Netflix - Seleção de Perfil</title>
+    <title>RPG - você está pronto pra isso?</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
+        <button id="theme-toggle" aria-label="Alternar tema claro/escuro">🌙</button>
         <h1>Selecione o seu personagem</h1>
     </header>
 
@@ -43,8 +44,31 @@
                 <h2>Cestus</h2>
             </article>
         </section>
+
+        <section id="perfil-descricao" class="perfil-descricao hidden" aria-live="polite">
+            <div class="perfil-descricao-grid">
+                <div class="perfil-descricao-texto">
+                    <h2 id="perfil-titulo">Selecione um personagem</h2>
+                    <p id="perfil-desc">Clique em um card para ver os detalhes do personagem.</p>
+                    <ul>
+                        <li>Poder: <strong id="perfil-poder">-</strong></li>
+                        <li>Defesa: <strong id="perfil-defesa">-</strong></li>
+                        <li>Dificuldade: <strong id="perfil-dificuldade">-</strong></li>
+                        <li>Velocidade: <strong id="perfil-velocidade">-</strong></li>
+                        <li>Especial: <span id="perfil-especial">-</span></li>
+                    </ul>
+                </div>
+                <div class="perfil-descricao-video">
+                    <video id="perfil-video" width="320" height="180" controls muted autoplay loop playsinline hidden>
+                        <source id="perfil-video-src" src="" type="video/mp4">
+                        Seu navegador não suporta vídeo.
+                    </video>
+                </div>
+            </div>
+        </section>
     </main>
 
+    <script src="theme.js"></script>
     <script src="perfis.js"></script>
 </body>
 </html>

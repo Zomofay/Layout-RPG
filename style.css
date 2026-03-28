@@ -18,6 +18,117 @@
     --border-radius: 8px;
 }
 
+/* Light mode variables */
+body.light-mode {
+    --color-background: #FFFFFF;
+    --color-text: #000000;
+    --color-text-secondary: #666666;
+    --color-secondary: #F5F5F5;
+    background-color: var(--color-background);
+    color: var(--color-text);
+}
+
+body.light-mode header {
+    background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.5) 100%);
+}
+
+body.light-mode article.perfil {
+    background-color: var(--color-secondary);
+}
+
+body.light-mode article.perfil h2,
+body.light-mode header h1,
+body.light-mode main,
+body.light-mode section.perfis {
+    color: var(--color-text);
+}
+
+body.light-mode article.perfil::after {
+    background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.7) 100%);
+}
+
+.perfil-descricao {
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    background-color: rgba(0, 0, 0, 0.45);
+    color: var(--color-text);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    transition: background-color var(--transition-speed), color var(--transition-speed);
+    display: grid;
+    grid-template-columns: 2fr 300px;
+    gap: 18px;
+    align-items: start;
+}
+
+.perfil-descricao-texto {
+    min-width: 0;
+}
+
+.perfil-descricao-video {
+    position: sticky;
+    top: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    max-width: 300px;
+}
+
+.perfil-descricao-video video {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.perfil-descricao ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+
+@media (max-width: 900px) {
+    .perfil-descricao {
+        grid-template-columns: 1fr;
+    }
+
+    .perfil-descricao-video {
+        position: relative;
+        top: 0;
+        margin-top: 16px;
+        max-width: 100%;
+    }
+}
+
+body.light-mode .perfil-descricao {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #000;
+}
+
+.perfil-descricao.hidden {
+    opacity: 0.6;
+}
+
+.perfil-descricao h2 {
+    margin-bottom: 12px;
+}
+
+.perfil-descricao ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(120px, 1fr));
+    gap: 10px;
+}
+
+.perfil-descricao ul li {
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
 * {
     /* Remove margem padrão de todos os elementos */
     margin: 0;
@@ -87,6 +198,14 @@ header::before {
     z-index: 0;
 }
 
+body.light-mode header::before {
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300"><defs><pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M 50 0 L 0 0 0 50" fill="none" stroke="rgba(0,0,0,0.05)" stroke-width="1"/></pattern></defs><rect width="1200" height="300" fill="url(%23grid)"/></svg>');
+}
+
+body.light-mode header::before {
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300"><defs><pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M 50 0 L 0 0 0 50" fill="none" stroke="rgba(0,0,0,0.05)" stroke-width="1"/></pattern></defs><rect width="1200" height="300" fill="url(%23grid)"/></svg>');
+}
+
 header h1 {
     /* Define tamanho grande para o título */
     font-size: 3rem;
@@ -98,16 +217,57 @@ header h1 {
     text-transform: uppercase;
     /* Necessário para usar z-index */
     position: relative;
-    /* Coloca o título acima da grade de fundo */
+    /* Coloca o título acima do fundo */
     z-index: 1;
-    /* Define a cor do texto em branco */
     color: var(--color-text);
-    /* Adiciona sombra ao texto para melhor contraste */
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
+@keyframes icon-rise {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.8;
+    }
+    50% {
+        transform: translateY(-12px) scale(1.2);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(0) scale(1);
+        opacity: 0.9;
+    }
+}
+
+/* Theme toggle button */
+#theme-toggle {
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.4);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+#theme-toggle:hover {
+    transform: rotate(20deg) scale(1.1);
+}
+
+#theme-toggle.animating {
+    animation: icon-rise 0.5s ease;
+}
+
 /* ========================================
-   Main
+   Main"
    ======================================== */
 main {
     /* Define largura máxima para layout responsivo */
@@ -356,6 +516,7 @@ article.perfil:focus-visible {
    ======================================== */
 /* Define a animação de entrada (fade in) */
 @keyframes fadeIn {
+
     /* Estado inicial: invisível e deslocado para baixo */
     from {
         /* Completamente transparente */
@@ -363,6 +524,7 @@ article.perfil:focus-visible {
         /* Deslocado 20px para baixo */
         transform: translateY(20px);
     }
+
     /* Estado final: visível e no lugar correto */
     to {
         /* Totalmente visível */
@@ -374,17 +536,36 @@ article.perfil:focus-visible {
 
 /* Aplica a animação a todos os cards */
 article.perfil {
+
     /* Nome da animação */
-/* Aplica a animação a todos os cards */
-article.perfil {
-    /* Nome da animação: fadeIn | Duração: 0.5s | Timing: ease-out | Preenchimento: forwards */
-    animation: fadeIn 0.5s ease-out forwards;
-}
-/* Define diferentes delays para efeito em cascata */
-article.perfil:nth-child(1) { animation-delay: 0.1s; }
-article.perfil:nth-child(2) { animation-delay: 0.2s; }
-article.perfil:nth-child(3) { animation-delay: 0.3s; }
-article.perfil:nth-child(4) { animation-delay: 0.4s; }
-article.perfil:nth-child(5) { animation-delay: 0.5s; }
-article.perfil:nth-child(6) { animation-delay: 0.6s; }
+    /* Aplica a animação a todos os cards */
+    article.perfil {
+        /* Nome da animação: fadeIn | Duração: 0.5s | Timing: ease-out | Preenchimento: forwards */
+        animation: fadeIn 0.5s ease-out forwards;
+    }
+
+    /* Define diferentes delays para efeito em cascata */
+    article.perfil:nth-child(1) {
+        animation-delay: 0.1s;
+    }
+
+    article.perfil:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    article.perfil:nth-child(3) {
+        animation-delay: 0.3s;
+    }
+
+    article.perfil:nth-child(4) {
+        animation-delay: 0.4s;
+    }
+
+    article.perfil:nth-child(5) {
+        animation-delay: 0.5s;
+    }
+
+    article.perfil:nth-child(6) {
+        animation-delay: 0.6s;
+    }
 }
