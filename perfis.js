@@ -84,11 +84,50 @@ function mostrarDetalhes(nome) {
     container.classList.remove('hidden');
 }
 
+function tocarAudio(src) {
+    const audio = new Audio(src);
+    audio.play().catch(err => console.log('Erro ao tocar áudio:', err));
+    return audio;
+}
+
 function initPerfis() {
     const cards = document.querySelectorAll('article.perfil');
+    let currentAudio = null;
+    let currentVoiceAudio = null;
+
+    function stopCurrentVoice() {
+        if (currentVoiceAudio) {
+            currentVoiceAudio.pause();
+            currentVoiceAudio.currentTime = 0;
+            currentVoiceAudio = null;
+        }
+    }
 
     cards.forEach(card => {
         card.addEventListener('click', () => {
+            const clickSoundSrc = card.dataset.clickSound || 'sounds/click.mp3';
+            const voiceSrc = card.dataset.voice;
+
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+                currentAudio = null;
+            }
+
+            stopCurrentVoice();
+
+            const clickAudio = new Audio(clickSoundSrc);
+            clickAudio.play().then(() => {
+                if (voiceSrc) {
+                    currentVoiceAudio = tocarAudio(voiceSrc);
+                }
+            }).catch(err => {
+                console.log('Erro no som de clique (ou bloqueado), tocando voz direto:', err);
+                if (voiceSrc) {
+                    currentVoiceAudio = tocarAudio(voiceSrc);
+                }
+            });
+
             const nome = card.querySelector('h2').textContent.trim();
             mostrarDetalhes(nome);
         });
@@ -100,7 +139,73 @@ function initPerfis() {
                 mostrarDetalhes(nome);
             }
         });
+
+        card.addEventListener('mouseenter', () => {
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+            }
+            currentAudio = tocarAudio(card.dataset.audio);
+        });
+
+        card.addEventListener('mouseleave', () => {
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+            }
+        });
     });
 }
 
-document.addEventListener('DOMContentLoaded', initPerfis);
+function initBackgroundMusic() {
+    const music = document.getElementById('background-music');
+    const soundToggle = document.getElementById('sound-toggle');
+    const volumeSlider = document.getElementById('volume-slider');
+
+    if (!music || !soundToggle || !volumeSlider) return;
+
+    music.volume = Number(volumeSlider.value);
+    music.muted = false;
+    soundToggle.textContent = '🔊';
+
+    let hasStarted = false;
+
+    function tryPlayMusic() {
+        if (!hasStarted) {
+            music.play().catch(() => {
+                // Autoplay bloqueado, depende de interação do usuário
+            });
+            hasStarted = true;
+        }
+    }
+
+    const updateToggleIcon = () => {
+        soundToggle.textContent = music.muted || music.volume === 0 ? '🔇' : '🔊';
+    };
+
+    soundToggle.addEventListener('click', () => {
+        music.muted = !music.muted;
+        if (music.muted) {
+            volumeSlider.value = '0';
+        } else if (Number(volumeSlider.value) === 0) {
+            volumeSlider.value = '0.4';
+            music.volume = 0.4;
+        }
+        updateToggleIcon();
+    });
+
+    volumeSlider.addEventListener('input', () => {
+        const value = Number(volumeSlider.value);
+        music.volume = value;
+        music.muted = value === 0;
+        updateToggleIcon();
+    });
+
+    document.body.addEventListener('click', tryPlayMusic, { once: true });
+    document.body.addEventListener('keydown', tryPlayMusic, { once: true });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    initPerfis();
+    initBackgroundMusic();
+});

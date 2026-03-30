@@ -8,38 +8,44 @@
 </head>
 <body>
     <header>
-        <button id="theme-toggle" aria-label="Alternar tema claro/escuro">🌙</button>
+        <div class="header-controls">
+            <button id="theme-toggle" aria-label="Alternar tema claro/escuro">🌙</button>
+            <button id="sound-toggle" aria-label="Ativar ou desativar música de fundo">🔈</button>
+            <input id="volume-slider" type="range" min="0" max="1" step="0.01" value="0.4" aria-label="Volume da música de fundo" />
+        </div>
         <h1>Selecione o seu personagem</h1>
     </header>
 
+    <audio id="background-music" src="/sounds/Houver/SoundBack.mp3" loop preload="auto" aria-label="Música de fundo"></audio>
+
     <main>
         <section class="perfis" aria-label="Seleção de perfis de usuário">
-            <article class="perfil" role="button" tabindex="0" aria-label="Selecionar perfil Berserker">
+            <article class="perfil" role="button" tabindex="0" aria-label="Selecionar perfil Berserker" data-audio="sounds/Houver/Soundhouver.mp3" data-voice="sounds/laugh/LaughBerserker.mp3" data-click-sound="sounds/Houver/SoundSelect.mp3">
                 <img src="/assets/Berserker com olhos flamejantes e machado.png" alt="Berserker - Guerreiro com olhos flamejantes">
                 <h2>Berserker</h2>
             </article>
 
-            <article class="perfil" role="button" tabindex="0" aria-label="Selecionar perfil Necromante">
+            <article class="perfil" role="button" tabindex="0" aria-label="Selecionar perfil Necromante" data-audio="sounds/Houver/Soundhouver.mp3" data-voice="sounds/laugh/LaughNecromante.mp3" data-click-sound="sounds/Houver/SoundSelect.mp3">
                 <img src="/assets/necromante poderoso.png" alt="Necromante - Feiticeiro poderoso">
                 <h2>Necromante</h2>
             </article>
 
-            <article class="perfil" role="button" tabindex="0" aria-label="Selecionar perfil Arco Celeste">
+            <article class="perfil" role="button" tabindex="0" aria-label="Selecionar perfil Arco Celeste" data-audio="sounds/Houver/Soundhouver.mp3" data-voice="sounds/laugh/LaughCeleste.mp3" data-click-sound="sounds/Houver/SoundSelect.mp3">
                 <img src="/assets/A arqueira radiante da justiça.png" alt="Arco Celeste - Arqueira radiante da justiça">
                 <h2>Arco Celeste</h2>
             </article>
 
-            <article class="perfil" role="button" tabindex="0" aria-label="Selecionar perfil Elemental">
+            <article class="perfil" role="button" tabindex="0" aria-label="Selecionar perfil Elemental" data-audio="sounds/Houver/Soundhouver.mp3" data-voice="sounds/laugh/LaughElemental.mp3" data-click-sound="sounds/Houver/SoundSelect.mp3">
                 <img src="/assets/Feiticeira elemental em poder mágico.png" alt="Elemental - Feiticeira elemental em poder mágico">
                 <h2>Elemental</h2>
             </article>
 
-            <article class="perfil" role="button" tabindex="0" aria-label="Selecionar perfil Magia Afiada">
+            <article class="perfil" role="button" tabindex="0" aria-label="Selecionar perfil Magia Afiada" data-audio="sounds/Houver/Soundhouver.mp3" data-voice="sounds/laugh/LaughFoice.mp3" data-click-sound="sounds/Houver/SoundSelect.mp3">
                 <img src="/assets/Feiticeira sombria e magia verde.png" alt="Magia Afiada - Feiticeira sombria com magia verde">
                 <h2>Magia Afiada</h2>
             </article>
 
-            <article class="perfil" role="button" tabindex="0" aria-label="Selecionar perfil Cestus">
+            <article class="perfil" role="button" tabindex="0" aria-label="Selecionar perfil Cestus" data-audio="sounds/Houver/Soundhouver.mp3" data-voice="sounds/laugh/LaughCestus.mp3" data-click-sound="sounds/Houver/SoundSelect.mp3">
                 <img src="/assets/Guerreiro em chamas e fúria.png" alt="Cestus - Guerreiro em chamas e fúria">
                 <h2>Cestus</h2>
             </article>
