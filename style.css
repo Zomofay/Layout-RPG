@@ -365,8 +365,8 @@ article.perfil {
 /* Efeito ao passar o mouse ou focar */
 article.perfil:hover,
 article.perfil:focus {
-    /* Aumenta o card 8% */
-    transform: scale(1.08);
+    /* Aumenta o card 10% */
+    transform: scale(1.10);
     /* Aumenta o brilho do card */
     filter: brightness(1.1);
 }
@@ -527,7 +527,7 @@ article.perfil:focus-visible {
    ======================================== */
 ::-webkit-scrollbar {
     /* Define a largura da barra de rolagem */
-    width: 12px;
+    width: 10px;
 }
 
 ::-webkit-scrollbar-track {
